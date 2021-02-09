@@ -1,10 +1,11 @@
 package assessment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Menu {
 	
-	// Menu has a unique Id, name, purpose and venue and session time
+	// Menu has  Id, name, purpose and venue and session time
 	
 	private int id;
 	private String name;
@@ -13,19 +14,25 @@ public class Menu {
 	private int sessionTime;
 	
 	
-	private ArrayList<MenuItem> menu;
+	private ArrayList<MenuItem> menu = new ArrayList<>();
 	
-	
+	//default constructor without parameters.
 	public Menu() {
-		
-		// default constructor without parameters.
-		// id has to be unique
+		this.id = 0;
+		this.name = "Unknown";
+		this.purpose = "Unknown";
+		this.venue = "Unknown";
+		this.sessionTime = 0;
 	}
 	
+	// non-default constructor with parameters.
 	public Menu(int id, String name, String purpose, String venue, int sessionTime) {
-		// non-default constructor with parameters.
-		// id has to be unique
 		// session time is measured in second ex. 300 seconds.
+		this.id = id;
+		this.name = name;
+		this.purpose = purpose;
+		this.venue = venue;
+		this.sessionTime = sessionTime;	
 	}
 	
 	public void addItem(MenuItem item) {
@@ -33,38 +40,66 @@ public class Menu {
 		this.menu.add(item);
 	}
 	
-	public void removeItem(int index) {
-		// remove item at the index passed as a prameter
-	}
-	
-	public MenuItem retrieveItem() {
-		// just return a single item
-		// need to modify toString() in MenuItem class
-		// to get the name of the MenuItem
-	}
-	
-	public int findItem(MenuItem item) {
-		// This is not requirement but nice to have.
-		for(int i = 0; i < this.menu.size(); i++) {
-			
+	public void removeItem(String itemName) {
+		// remove item from the arrayList
+		int index = retrieveItem(itemName);
+		
+		if(index != -1) {
+			this.menu.remove(index);
+			System.out.println(itemName + " was removed from the menu.");
+		}else {
+			System.out.println(itemName + "was not found in the menu.");
 		}
+	}
+	
+	public void removeItem(MenuItem item) {
+		// remove item from the arrayList
+		int index = retrieveItem(item);
+		if(index != -1) {
+			this.menu.remove(index);
+			System.out.println(item.getItemName() + " was removed from the menu.");
+		} else {
+			System.out.println(item.getItemName() + " was not found in the menu.");
+		}
+		
+	}
+	
+	// retrieve item based on item name
+	public int retrieveItem(String itemName) {
+		for(MenuItem item: this.menu) {
+			if(item.getItemName().equals(itemName)) {
+				return this.menu.indexOf(item);
+			}
+		}	
+		return -1; 
+	}
+	// retrieve item based on Item itself
+	public int retrieveItem(MenuItem item) {
+		return this.menu.indexOf(item);
 	}
 	
 	public String toString() {
 		// Show details(purpose) of Menu and menu items in it
+		String print;
+		print = "***** " + this.name + " *****\n" +
+				"\nPurpose: " + this.purpose + 
+				"\nVenue: " + this.venue + 
+				"\n\n" +
+				getMenu() +
+				"\n";
+		
+		return print;
 	}
 
 	// Below is getters and setters
-	// id shouldn't be changed because it has be unique
-	// So I omitted the setter for ID
 	
 	public int getId() {
 		return id;
 	}
 
-//	public void setId(int id) {
-//		this.id = id;
-//	}
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
