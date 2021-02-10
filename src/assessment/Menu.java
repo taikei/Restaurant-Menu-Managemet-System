@@ -1,7 +1,7 @@
 package assessment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class Menu {
 	
@@ -14,7 +14,7 @@ public class Menu {
 	private int sessionTime;
 	
 	
-	private ArrayList<MenuItem> menu = new ArrayList<>();
+	protected ArrayList<MenuItem> menu = new ArrayList<>();
 	
 	//default constructor without parameters.
 	public Menu() {
@@ -86,7 +86,8 @@ public class Menu {
 				"\nVenue: " + this.venue + 
 				"\n\n" +
 				getMenu() +
-				"\n";
+				"\n" + 
+				"*****************************";
 		
 		return print;
 	}

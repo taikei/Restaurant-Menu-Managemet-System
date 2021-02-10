@@ -12,14 +12,33 @@ public class Customer {
 	// New -> No discount
 	
 	public Customer() {
-		
+		this.name = "Unknown";
+		this.discount = 0.0;
+		this.status = "Unknown";
 	}
 	
-	public Customer(String name, double discount, String status) {
-		//super();
+	public Customer(String name, String status) {
 		this.name = name;
-		this.discount = discount;
 		this.status = status;
+		
+		if(this.status == "Active") {
+			// 10% discount
+			this.discount = 0.1;
+		}else if(this.status == "VIP") {
+			// 15% discount
+			this.discount = 0.15;
+		}else {
+			// No discount
+			this.discount = 0.0;
+		}
+	}
+	
+	public String toString() {
+		String print;
+		print = "Name: " + getName() + 
+				"\nStatus: " + getStatus();
+		
+		return print;
 	}
 
 	public String getName() {
@@ -33,9 +52,15 @@ public class Customer {
 	public double getDiscount() {
 		return discount;
 	}
-
-	public void setDiscount() {
-		// this.discount = calculation based on this.status;
+	// You dont wanna anyone to change discount as they like
+	private void setDiscount(String status) {
+		if(status == "Active") {
+			this.discount = 0.1;
+		}else if(status == "VIP") {
+			this.discount = 0.15;
+		}else {
+			this.discount = 0.0;
+		}
 	}
 
 	public String getStatus() {
@@ -43,7 +68,13 @@ public class Customer {
 	}
 
 	public void setStatus(String status) {
-		this.status = status;
+		if(status != "Active" || status != "VIP" || status != "New") {
+			return;
+		} else {
+			this.status = status;
+			setDiscount(status);
+		}
+		
 	}
 	
 	
